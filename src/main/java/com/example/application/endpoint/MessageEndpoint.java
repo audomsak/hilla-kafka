@@ -39,7 +39,7 @@ public class MessageEndpoint {
         kafkaTemplate.send(topicName, message);
     }
 
-    @KafkaListener(topics="chat", groupId = "chat-group")
+    @KafkaListener(topics="${topic.name}", groupId = "${spring.kafka.consumer.group-id}")
     private void consumer(Message message) {
         chatSink.emitNext(message,
                 (signalType, emitResult) -> emitResult == EmitResult.FAIL_NON_SERIALIZED);
